@@ -36,4 +36,4 @@ docker run -ti -p 8080:8080 \
 ```
 
 #### View UI page
-http:localhost:8080/_spec/
+http://localhost:8080/_spec/
