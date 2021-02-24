@@ -34,3 +34,6 @@ docker run -ti -p 8080:8080 \
     -v $(pwd):/opt/imposter/config \
     outofcoffee/imposter-rest
 ```
+
+#### View UI page
+http:localhost:8080/_spec/
