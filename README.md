@@ -8,7 +8,7 @@ https://swagger.io/specification/
 
 #### Viewable UI link (not usable)
 
-https://editor.swagger.io/?url=https://raw.githubusercontent.com/NardoLee3/OpenAPI-Specification/main/demo.yaml
+https://editor.swagger.io/?url=https://raw.githubusercontent.com/NardoLee3/OpenAPI-Specification/main/github-demo.yaml
 
 ## OpenAPI 3.0 Specification to Postman Collection
 ### Install openapi-to-postmanv2
