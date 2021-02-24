@@ -24,6 +24,8 @@ openapi2postmanv2 -s demo.yaml -o collection.json -p -O folderStrategy=Tags,incl
 The config file must named followed by `-config.yaml`
 
 ### run command line
+```
 docker run -ti -p 8080:8080 \
     -v $(pwd):/opt/imposter/config \
     outofcoffee/imposter-rest
+```
