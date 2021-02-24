@@ -1,0 +1,283 @@
+openapi: 3.0.0
+info:
+  description: Mockup server for swagger demo
+  version: 1.0.0
+  title: Mock up server
+  termsOfService: https://wwww.ubisoft.com
+  contact:
+    name: Nardo Lee
+    url: https://www.google.com
+    email: nardo.lee@actechmy.com
+
+  license:
+    name: MIT
+    url: https://www.yahoo.com.my
+
+servers:
+  url: http://localhost:4010
+  description: Mock Server
+
+tags:
+- name: admins
+  description: Admin actions
+- name: users
+  description: User actions
+
+paths:
+  /:
+    get:
+      tags:
+      - users
+      - admins
+      summary: health check
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+  /sendMsg:
+    post:
+      tags:
+        - users
+      summary: send msg to other
+      requestBody:
+        content: 
+          application/json:
+            schema:
+              properties:
+                id: 
+                  type: integer
+                  example: 101
+                msg:
+                  type: string
+                  example: Hello World
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  ret:
+                    type: string
+                    example: 0
+                  msg: 
+                    type: string
+                    example: successfully sent msg
+  /user/{userId}:
+    get:
+      tags:
+      - users
+      summary: get specific user details
+      operationId: getUser
+      description: |
+        By passing in the appropriate options, user can search for 
+        available user in the system
+      responses:
+        200:
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: bad input parameter 
+  /user:
+    get:
+      tags:
+      - users
+      summary: get users list
+      operationId: getUser
+      description: |
+        User can search for available users in the system
+      responses:
+        200:
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+        400:
+          description: bad input parameter 
+    post:
+        tags:
+        - admins
+        summary: adds new User
+        operationId: addUser
+        description: Adds an user
+        requestBody:
+          description: add user to system
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddUser'
+              examples:
+        responses:
+          200:
+            description: search results matching criteria
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/User'
+          400:
+            description: bad input parameter
+  /profile:
+    post:
+      tags:
+      - users
+      summary: check user detail
+      description: Check on a specific user details
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                id: 
+                  type: integer
+                  example: 101
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Details'
+        400:
+          content:
+            appplication/json:
+              schema:
+                $ref: '#/components/schemas/IllegalInput'
+
+components:
+  schemas:
+    GeneralError:
+      type: object
+      propertties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name: 
+          type: string
+    Tag:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+    Health:
+      type: object
+      properties:
+        ret: 
+          type: string
+          example: 0
+        msg:
+          type: string
+          example: It is working atm.
+    AddUser:
+      required:
+      - id
+      - user
+      properties:
+        id:
+          type: int32
+          example: 100
+        user:
+          $ref: '#/components/schemas/User'
+    Users:
+      required:
+      - hash
+      - name
+      - details
+      properties:
+        ret:
+          type: string
+          example: 0
+        data:
+          type: array
+          items: 
+           $ref: '#/components/schemas/UserArray'
+    UserArray:
+      properties:
+        hash:
+          type: string
+          format: utf-8
+          example: ffffeeee-fe-1010-5566
+        name:
+          type: string
+          example: Leeroy Jeeeeeeeeeeeeeeeeeeeenkins
+        details:
+          $ref: '#/components/schemas/Details'
+    User:
+      properties:
+        hash:
+          type: string
+          format: utf-8
+          example: aaaabbbb-fcd-1010-5566
+        name:
+          type: string
+          example: Nama Wee
+        details:
+          $ref: '#/components/schemas/Details'
+    Details:
+      required:
+      - name
+      properties:
+        ret:
+          type: string
+          example: 0
+        name:
+          type: string
+          example: Leeroy Jenkins
+        quotes:
+          type: string
+          example: at least I have chicken
+    IllegalInput:
+      properties:
+        ret:
+          type: string
+          example: -99
+        msg:
+          type: string
+          example: Invalid Input
+
+  parameters:
+    skipParam:
+      name: skip
+      in: query
+      description: number of items to skip
+      required: true
+      schema:
+        type: integer
+        format: int32
+    limitParam:
+      name: limit
+      in: query
+      description: max records to return
+      requried: true
+      schema:
+        type: integer
+        format: int32
+    responses:
+      NotFound:
+        description: Entity not found.
+      IllegalInput:
+        description: Illegal input for the operationId
+      GeneralError:
+        description: General Error
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GeneralError'
+  
+
+        
+      
