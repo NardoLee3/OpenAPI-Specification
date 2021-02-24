@@ -6,6 +6,7 @@ OpenAPI 3.0 is *NOT* backward compatibility OpenAPI 2.0 is not usable
 https://swagger.io/specification/
 
 Viewable UI link (not usable)
+
 https://editor.swagger.io/?url=https://raw.githubusercontent.com/NardoLee3/OpenAPI-Specification/main/demo.yaml
 
 ## OpenAPI 3.0 Specification to Postman Collection
